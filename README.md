@@ -14,15 +14,18 @@ updated if this does not match the location that the repository is cloned to.
 This application presents the following options and associated functionality:
 
 Print outputs of jUnit XML files in columns suitable to be imported into Excel:
-1. Print JSON-java tests
-2. Print junrar tests
-3. Print SimplifyLearning tests
-4. Print telek-math tests
+  
+  1. Print JSON-java tests
+  2. Print junrar tests
+  3. Print SimplifyLearning tests
+  4. Print telek-math tests
 
 Print a list of "Sum Functions" to insert into an Excel document
-6. Print spreadsheet sum functions
+  
+  6. Print spreadsheet sum functions
 
 Print the ordering and results of two contrasting test prioritization strategies: (WIP)
-7. Print junrar csv
-8. Print SimplifyLearning csv
-9. Print telek-math csv
+  
+  7. Print junrar csv
+  8. Print SimplifyLearning csv
+  9. Print telek-math csv
