@@ -30,9 +30,9 @@ public class TestParseUtils {
     public static Processors slProcessors = new Processors("sl");
     public static Processors tmProcessors = new Processors("tm");
     static final ArrayList<JunrarBean> jBeans = new ArrayList<>();
-    // public static List<SimplifyLearningBean> slBeans;
-    // public static List<TelekMathBean> tmBeans;
-    // public static List<JsonJavaBean> jjBeans;
+    static final List<SimplifyBean> slBeans = new ArrayList<>();
+    static final List<TelekBean> tmBeans = new ArrayList<>();
+    // static final List<JsonJavaBean> jjBeans = new ArrayList<>();
 
     public static void main(String[] args) throws Exception {
         String loopString = "Y";
@@ -73,14 +73,13 @@ public class TestParseUtils {
                     printSumFunctions();
                     break;
                 case 6:
-                    // parseCSV("j.csv");
                     readJunrarCSV("j.csv");
                     break;
                 case 7:
-                    parseCSV("sl.csv");
+                    readSimplifyCSV("sl.csv");
                     break;
                 case 8:
-                    parseCSV("tm.csv");
+                    readTelekCSV("tm.csv");
                     break;
                 default:
                     break;
@@ -226,14 +225,74 @@ public class TestParseUtils {
         jCSV.printMostLinesFirst();
     }
 
-    static void testjCSVFunc(List<JunrarBean> beansList) {
-        int max = 0;
-        for (JunrarBean bean : beansList) {
-            int tempTotalCov = bean.getTotalCov();
-            System.out.println(tempTotalCov);
-            if (tempTotalCov > max) max = tempTotalCov;
+    /**
+     * Adapted from CsvBeanReader example in SuperCSV documentation.
+     */
+    private static void readSimplifyCSV(String fileName) throws Exception {
+        String pathToTargetFile = pathToReports + csvFolder + fileName;
+
+        ICsvBeanReader beanReader = null;
+        try {
+            beanReader = new CsvBeanReader(new FileReader(pathToTargetFile), CsvPreference.STANDARD_PREFERENCE);
+
+            // the header elements are used to map the values to the bean (names must match)
+            final String[] header = beanReader.getHeader(true);
+            final CellProcessor[] processors = slProcessors.processor;
+
+            SimplifyBean slBean;
+            while((slBean = beanReader.read(SimplifyBean.class, header, processors)) != null ) {
+                // System.out.println(String.format("Adding bean: lineNo=%s, rowNo=%s, test=%s", beanReader.getLineNumber(),
+                // beanReader.getRowNumber(), jBean));
+                slBeans.add(slBean);
+            }
+
+            prioritizeslCSV(slBeans);
         }
-        System.out.println("Max coverage: " + max);
+        finally {
+            if( beanReader != null ) {
+                beanReader.close();
+            }
+        }
+    }
+
+    static void prioritizeslCSV(List<SimplifyBean> beansList) {
+        SimplifyCSV slCSV = new SimplifyCSV(beansList);
+        slCSV.printMostLinesFirst();
+    }
+
+    /**
+     * Adapted from CsvBeanReader example in SuperCSV documentation.
+     */
+    private static void readTelekCSV(String fileName) throws Exception {
+        String pathToTargetFile = pathToReports + csvFolder + fileName;
+
+        ICsvBeanReader beanReader = null;
+        try {
+            beanReader = new CsvBeanReader(new FileReader(pathToTargetFile), CsvPreference.STANDARD_PREFERENCE);
+
+            // the header elements are used to map the values to the bean (names must match)
+            final String[] header = beanReader.getHeader(true);
+            final CellProcessor[] processors = tmProcessors.processor;
+
+            TelekBean tmBean;
+            while((tmBean = beanReader.read(TelekBean.class, header, processors)) != null ) {
+                // System.out.println(String.format("Adding bean: lineNo=%s, rowNo=%s, test=%s", beanReader.getLineNumber(),
+                // beanReader.getRowNumber(), jBean));
+                tmBeans.add(tmBean);
+            }
+
+            prioritizetmCSV(tmBeans);
+        }
+        finally {
+            if( beanReader != null ) {
+                beanReader.close();
+            }
+        }
+    }
+
+    static void prioritizetmCSV(List<TelekBean> beansList) {
+        TelekCSV tmCSV = new TelekCSV(beansList);
+        tmCSV.printMostLinesFirst();
     }
 }
 
