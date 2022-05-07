@@ -2,13 +2,20 @@ package TestParseUtils.CSV;
 
 import TestParseUtils.JavaBeans.JunrarBean;
 import TestParseUtils.JavaBeans.TelekBean;
+import TestParseUtils.Processors;
+import org.supercsv.cellprocessor.ift.CellProcessor;
+import org.supercsv.io.CsvBeanWriter;
+import org.supercsv.io.ICsvBeanWriter;
+import org.supercsv.prefs.CsvPreference;
 
+import java.io.FileWriter;
 import java.util.*;
 
 /**
  * A class for prioritizing TelekMath tests and printing the results
  **/
 public class TelekCSV {
+    public static Processors tmProcessors = new Processors("tm");
     private int index = 0;
     private String[] order = new String[8];
     private Map<String, TelekBean> tmBeanMap = new HashMap<>();
@@ -68,16 +75,18 @@ public class TelekCSV {
         }
     }
 
-    public void printMostLinesFirst() {
+    public void printMostLinesFirst() throws Exception {
         sortBy("lineCov", tmBeans);
         System.out.println("\nTests prioritized by most overall lines covered first:");
         printResults();
+        writeResultsCSV("TelekMath-MostLinesFirst.csv");
     }
 
-    public void printOtherPrioritization() {
+    public void printOtherPrioritization() throws Exception {
         newPrioritization();
         System.out.println("\nTests prioritized by most lines covered in most untested project units first:");
         printResults();
+        writeResultsCSV("TelekMath-UncovProgUnitsFirst.csv");
     }
 
     private double calculateAFPD(int TFs, int N, int M) {
@@ -169,6 +178,37 @@ public class TelekCSV {
         for (int i : maximums) {
             this.order[counter] = getKey(maxMap, i);
             counter++;
+        }
+    }
+
+    /**
+     * Write test results to CSV.
+     */
+    private void writeResultsCSV(String fileName) throws Exception {
+        ICsvBeanWriter beanWriter = null;
+        try {
+            beanWriter = new CsvBeanWriter(new FileWriter("target/" + fileName),
+                    CsvPreference.STANDARD_PREFERENCE);
+
+            // the header elements are used to map the bean values to each column (names must match)
+            final String[] header = new String[] { "suite", "test", "totalCov", "plain", "containers", "colors",
+                    "arrayref", "utils", "special", "core", "advanced", "time", "status" };
+            final CellProcessor[] processors = tmProcessors.getProcessor();
+
+            // write the header
+            beanWriter.writeHeader(header);
+
+            // write the beans
+            for( final TelekBean bean : tmBeans ) {
+                beanWriter.write(bean, header, processors);
+            }
+
+            System.out.println("New CSV written to project /target/ directory.");
+        }
+        finally {
+            if( beanWriter != null ) {
+                beanWriter.close();
+            }
         }
     }
 }

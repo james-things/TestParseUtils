@@ -2,13 +2,20 @@ package TestParseUtils.CSV;
 
 import TestParseUtils.JavaBeans.JunrarBean;
 import TestParseUtils.JavaBeans.SimplifyBean;
+import TestParseUtils.Processors;
+import org.supercsv.cellprocessor.ift.CellProcessor;
+import org.supercsv.io.CsvBeanWriter;
+import org.supercsv.io.ICsvBeanWriter;
+import org.supercsv.prefs.CsvPreference;
 
+import java.io.FileWriter;
 import java.util.*;
 
 /**
  * A class for prioritizing SimplifyLearning tests and printing the results
  **/
 public class SimplifyCSV {
+    public static Processors slProcessors = new Processors("sl");
     private int index = 0;
     private String[] order = new String[4];
     private Map<String, SimplifyBean> slBeanMap = new HashMap<>();
@@ -56,16 +63,18 @@ public class SimplifyCSV {
         }
     }
 
-    public void printMostLinesFirst() {
+    public void printMostLinesFirst() throws Exception {
         sortBy("lineCov", slBeans);
         System.out.println("\nTests prioritized by most overall lines covered first:");
         printResults();
+        writeResultsCSV("SimplifyLearning-MostLinesFirst.csv");
     }
 
-    public void printOtherPrioritization() {
+    public void printOtherPrioritization() throws Exception {
         newPrioritization();
         System.out.println("\nTests prioritized by most lines covered in most untested project units first:");
         printResults();
+        writeResultsCSV("SimplifyLearning-UncovProgUnitsFirst.csv");
     }
 
     private double calculateAFPD(int TFs, int N, int M) {
@@ -149,6 +158,37 @@ public class SimplifyCSV {
         for (int i : maximums) {
             this.order[counter] = getKey(maxMap, i);
             counter++;
+        }
+    }
+
+    /**
+     * Write test results to CSV.
+     */
+    private void writeResultsCSV(String fileName) throws Exception {
+        ICsvBeanWriter beanWriter = null;
+        try {
+            beanWriter = new CsvBeanWriter(new FileWriter("target/" + fileName),
+                    CsvPreference.STANDARD_PREFERENCE);
+
+            // the header elements are used to map the bean values to each column (names must match)
+            final String[] header = new String[] { "suite", "test", "totalCov", "core", "search", "shuffle",
+                    "sort", "time", "status" };
+            final CellProcessor[] processors = slProcessors.getProcessor();
+
+            // write the header
+            beanWriter.writeHeader(header);
+
+            // write the beans
+            for( final SimplifyBean bean : slBeans ) {
+                beanWriter.write(bean, header, processors);
+            }
+
+            System.out.println("New CSV written to project /target/ directory.");
+        }
+        finally {
+            if( beanWriter != null ) {
+                beanWriter.close();
+            }
         }
     }
 }

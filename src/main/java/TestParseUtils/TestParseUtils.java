@@ -49,9 +49,9 @@ public class TestParseUtils {
             System.out.println("3. Print SimplifyLearning tests");
             System.out.println("4. Print telek-math tests");
             System.out.println("\n5. Print spreadsheet sum functions");
-            System.out.println("\n6. Print junrar csv");
-            System.out.println("7. Print SimplifyLearning csv");
-            System.out.println("8. Print telek-math csv");
+            System.out.println("\n6. Calculate junrar prioritization");
+            System.out.println("7. Calculate SimplifyLearning prioritization");
+            System.out.println("8. Calculate telek-math prioritization");
             System.out.println("\n9. Exit application");
             System.out.print("\nEnter a selection: ");
             int selection = Integer.parseInt(in.nextLine());
