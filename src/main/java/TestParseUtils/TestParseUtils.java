@@ -258,6 +258,7 @@ public class TestParseUtils {
     static void prioritizeslCSV(List<SimplifyBean> beansList) {
         SimplifyCSV slCSV = new SimplifyCSV(beansList);
         slCSV.printMostLinesFirst();
+        slCSV.findOrder();
     }
 
     /**

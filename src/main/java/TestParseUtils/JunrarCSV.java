@@ -39,4 +39,8 @@ public class JunrarCSV {
         System.out.println("\nFound error at position: " + foundErrorAtPosition);
         System.out.println("Time to find error: " + timeToFindError + "ms");
     }
+
+    public void printMostLinesPerClass() {
+
+    }
 }

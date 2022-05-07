@@ -1,15 +1,29 @@
 package TestParseUtils;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class SimplifyCSV {
-    private List<SimplifyBean> slBeans = new ArrayList<>();
+    private Map<String, SimplifyBean> slBeanMap = new HashMap<String, SimplifyBean>();
+    private List<SimplifyBean> slBeans;
 
     public SimplifyCSV(List <SimplifyBean> list) {
         this.slBeans = list;
+        mapBeans();
+    }
+
+    public void mapBeans() {
+        for (SimplifyBean bean : slBeans) {
+            slBeanMap.put(bean.getTest(), bean);
+        }
+    }
+
+    public <K, V> K getKey(Map<K, V> map, V value) {
+        for (Map.Entry<K, V> entry : map.entrySet()) {
+            if (entry.getValue().equals(value)) {
+                return entry.getKey();
+            }
+        }
+        return null;
     }
 
     public void sortByLinesCovered() {
@@ -38,5 +52,33 @@ public class SimplifyCSV {
         }
         System.out.println("\nFound error at position: " + foundErrorAtPosition);
         System.out.println("Time to find error: " + timeToFindError + "ms");
+    }
+
+    public void printMostLinesPerClass() {
+
+    }
+
+    void findOrder() {
+        Map<String, Integer> maxMap = new HashMap<>();
+        maxMap.put("core", 0);
+        maxMap.put("search", 0);
+        maxMap.put("shuffle", 0);
+        maxMap.put("sort", 0);
+        ArrayList<Integer> maximums = new ArrayList<>();
+        for (SimplifyBean bean : slBeans) {
+            if (bean.getCore() > maxMap.get("core")) maxMap.replace("core", bean.getCore());
+            if (bean.getSearch() > maxMap.get("search")) maxMap.replace("search", bean.getSearch());
+            if (bean.getShuffle() > maxMap.get("shuffle")) maxMap.replace("shuffle", bean.getShuffle());
+            if (bean.getSort() > maxMap.get("sort")) maxMap.replace("sort", bean.getSort());
+        }
+
+        for (Map.Entry<String, Integer> entry : maxMap.entrySet()) maximums.add(entry.getValue());
+
+        Collections.sort(maximums);
+        Collections.reverse(maximums);
+
+        for (int i : maximums) {
+            System.out.println(getKey(maxMap, i) + " " + i);
+        }
     }
 }
