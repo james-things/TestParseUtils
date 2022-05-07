@@ -81,11 +81,13 @@ public class JunrarCSV {
 
     public void printMostLinesFirst() {
         sortBy("lineCov", jBeans);
+        System.out.println("\nTests prioritized by most overall lines covered first:");
         printResults();
     }
 
     public void printOtherPrioritization() {
         newPrioritization();
+        System.out.println("\nTests prioritized by most lines covered in most untested project units first:");
         printResults();
     }
 
@@ -95,9 +97,9 @@ public class JunrarCSV {
         int timeToFindError = 0;
         boolean foundError = false;
 
-        System.out.printf("%n%s %s %s %s", "Coverage", "Status", "Time", "Test");
+        System.out.format("\n%-10s%-8s%-6s%-30s", "Coverage", "Status", "Time", "Test");
         for (JunrarBean bean : jBeans) {
-            System.out.printf("%n%s %s %s %s", bean.getTotalCov(), bean.getStatus(), bean.getTime(), bean.getTest());
+            System.out.format("\n%-10s%-8s%-6s%-30s", bean.getTotalCov(), bean.getStatus(), bean.getTime(), bean.getTest());
             if (!foundError) timeToFindError += bean.getTime();
             // if we've found an error, store count
             if (!foundError && Objects.equals(bean.getStatus(), "error")) {

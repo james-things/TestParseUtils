@@ -101,7 +101,7 @@ public class TestParseUtils {
     /**
      * Method that prints test details as categorized columns for import into Excel.
      */
-    public static void printTestInfoAsCopyLists(String project) throws ParserConfigurationException {
+    public static void printTestInfoAsCopyLists(String project) {
         XMLTestPrinter xmlPrinter = new XMLTestPrinter(pathToReports, reportFolder, project);
         xmlPrinter.printTestInfoAsCopyLists();
     }
