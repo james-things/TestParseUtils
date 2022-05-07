@@ -37,7 +37,7 @@ public class XMLTestPrinter {
         List<String> durations = new ArrayList<>();
         List<String> statuses = new ArrayList<>();
         String suiteFileName = "";
-        String path = this.pathToReports + this.project + this.reportFolder;
+        String path = this.pathToReports + this.reportFolder + this.project + "\\";
         File folder = new File(path);
         File[] listOfFiles = folder.listFiles();
 

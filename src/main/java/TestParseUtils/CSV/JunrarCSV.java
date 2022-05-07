@@ -91,27 +91,41 @@ public class JunrarCSV {
         printResults();
     }
 
+    private double calculateAFPD(int TFs, int N, int M) {
+        return (((double)TFs / ((double)M * (double)N)) + (1 / ((double)N*2)));
+    }
+
     public void printResults() {
-        int foundErrorAtPosition = -1;
-        int count = 1;
-        int timeToFindError = 0;
-        boolean foundError = false;
+        int afpdTFs = 0;
+        int afpdN = 0;
+        int afpdM = jBeans.size();
+        ArrayList<Integer> foundFailuresAtPositions = new ArrayList<>();
+        int count = 1; // tracks test position
+        int timeToFindFailure = 0;
+        int timetoFindFailures = 0;
+        boolean foundFirstFailure = false;
 
         System.out.format("\n%-10s%-8s%-6s%-30s", "Coverage", "Status", "Time", "Test");
         for (JunrarBean bean : jBeans) {
             System.out.format("\n%-10s%-8s%-6s%-30s", bean.getTotalCov(), bean.getStatus(), bean.getTime(), bean.getTest());
-            if (!foundError) timeToFindError += bean.getTime();
-            // if we've found an error, store count
-            if (!foundError && Objects.equals(bean.getStatus(), "error")) {
-                foundError = true;
-                foundErrorAtPosition = count;
+            // Collect some stats
+            if (!foundFirstFailure) timeToFindFailure += bean.getTime(); // first failure
+            if (!foundFirstFailure && (Objects.equals(bean.getStatus(), "error") || Objects.equals(bean.getStatus(),"failed"))) {
+                foundFirstFailure = true;}
+            // track afpd-relevant and other details
+            if (Objects.equals(bean.getStatus(), "error") || Objects.equals(bean.getStatus(),"failed")) {
+                afpdTFs += count;
+                afpdN += 1;
+                foundFailuresAtPositions.add(count);
             }
             count++; //increment count
         }
-        System.out.println("\nFound error at position: " + foundErrorAtPosition);
-        System.out.println("Time to find error: " + timeToFindError + "ms");
+        double AFPD = calculateAFPD(afpdTFs, afpdN, afpdM);
+        System.out.print("\n\nFound test failures at positions: ");
+        for (int testPos : foundFailuresAtPositions) System.out.print(testPos + ", ");
+        System.out.println("\n\nCalculated AFPD: " + AFPD);
+        System.out.println("AFPD = ((TF1, TF2, ... TFn) / nm) + (1 / 2n)");
     }
-
 
     void newPrioritization() {
         ArrayList<JunrarBean> tempList = new ArrayList<>();

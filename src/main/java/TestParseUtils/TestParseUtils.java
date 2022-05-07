@@ -1,5 +1,6 @@
 package TestParseUtils;
 
+import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -22,7 +23,8 @@ import org.supercsv.prefs.CsvPreference;
  * in a collection of sample java projects.
  */
 public class TestParseUtils {
-    public static String pathToReports = "C:/repos/testing-project/New-Test-Reports/"; // change as per local repo location
+    //public static String pathToReports = "C:/repos/testing-project/New-Test-Reports/"; // change as per local repo location
+    public static String pathToReports = new File("src/main/resources/DataFiles").getAbsolutePath();
     public static String reportFolder = "/XML/";
     public static String csvFolder = "/CSV/";
     public static Processors jProcessors = new Processors("j");
@@ -38,7 +40,7 @@ public class TestParseUtils {
         Scanner in = new Scanner(System.in);
 
         System.out.println("Test Parse Util");
-
+        System.out.println(pathToReports);
 
          // Main loop which allows the selection of different program functions.
         while (loopString.equalsIgnoreCase("y")) {
