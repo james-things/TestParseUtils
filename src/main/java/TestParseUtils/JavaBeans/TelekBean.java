@@ -1,4 +1,4 @@
-package TestParseUtils;
+package TestParseUtils.JavaBeans;
 
 /**
  * A bean designed to store rows of TelekMath test results

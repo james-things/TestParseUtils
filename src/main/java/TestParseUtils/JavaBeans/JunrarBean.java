@@ -1,4 +1,4 @@
-package TestParseUtils;
+package TestParseUtils.JavaBeans;
 
 /**
  * A javabean designed to store rows of Junrar test results

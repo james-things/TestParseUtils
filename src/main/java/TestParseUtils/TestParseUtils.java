@@ -5,6 +5,13 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import javax.xml.parsers.ParserConfigurationException;
 
+import TestParseUtils.JavaBeans.JunrarBean;
+import TestParseUtils.JavaBeans.SimplifyBean;
+import TestParseUtils.JavaBeans.TelekBean;
+import TestParseUtils.CSV.JunrarCSV;
+import TestParseUtils.CSV.SimplifyCSV;
+import TestParseUtils.CSV.TelekCSV;
+import TestParseUtils.XML.XMLTestPrinter;
 import org.supercsv.cellprocessor.ift.CellProcessor;
 import org.supercsv.io.CsvBeanReader;
 import org.supercsv.io.ICsvBeanReader;
@@ -74,6 +81,7 @@ public class TestParseUtils {
                     break;
                 case 9:
                     loopString = "N";
+                    System.out.println("Application will now terminate.");
                     break;
                 default:
                     break;

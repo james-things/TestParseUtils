@@ -1,4 +1,4 @@
-package TestParseUtils;
+package TestParseUtils.XML;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -15,9 +15,9 @@ import java.util.List;
  * A class which handles printing jUnit XML results in a way that can be easily copied into an Excel document.
  */
 public class XMLTestPrinter {
-    private String pathToReports;
-    private String reportFolder;
-    private String project;
+    private final String pathToReports;
+    private final String reportFolder;
+    private final String project;
 
     // Constructor
     public XMLTestPrinter(String pathToReports, String reportFolder, String project) {

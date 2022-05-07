@@ -1,4 +1,6 @@
-package TestParseUtils;
+package TestParseUtils.CSV;
+
+import TestParseUtils.JavaBeans.SimplifyBean;
 
 import java.util.*;
 
