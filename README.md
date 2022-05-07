@@ -8,7 +8,7 @@ and are specifically tailored for their purposes, however they may be tailored t
 The current set of options is meant to be run against the following repository:
 https://github.com/james-things/java-test-prioritization-projects
 
-The assumption hardcoded in is that the repo will be cloned to C:\Repos\ and as such the code must be
+The assumption hardcoded in is that the repo will be cloned to C:\repos\testing-projects\ and as such the code must be
 updated if this does not match the location that the repository is cloned to.
 
 This application presents the following options and associated functionality:
