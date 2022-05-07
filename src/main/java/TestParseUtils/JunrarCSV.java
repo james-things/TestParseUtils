@@ -2,6 +2,9 @@ package TestParseUtils;
 
 import java.util.*;
 
+/**
+ * A class for prioritizing Junrar tests and printing the results
+ **/
 public class JunrarCSV {
     private int index = 0;
     private String[] order = new String[12];

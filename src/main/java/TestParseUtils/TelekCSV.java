@@ -2,6 +2,9 @@ package TestParseUtils;
 
 import java.util.*;
 
+/**
+ * A class for prioritizing TelekMath tests and printing the results
+ **/
 public class TelekCSV {
     private int index = 0;
     private String[] order = new String[8];
@@ -30,7 +33,7 @@ public class TelekCSV {
 
     public void sortBy(String sortKey, ArrayList<TelekBean> list) {
         switch (sortKey) {
-            case "lineCov": // plain, containers, colors, arrayref, utils, special, core, advanced
+            case "lineCov":
                 list.sort(Comparator.comparing(TelekBean::getTotalCov).reversed());
                 break;
             case "plain":

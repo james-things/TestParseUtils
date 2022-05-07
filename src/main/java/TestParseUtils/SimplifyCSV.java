@@ -2,6 +2,9 @@ package TestParseUtils;
 
 import java.util.*;
 
+/**
+ * A class for prioritizing SimplifyLearning tests and printing the results
+ **/
 public class SimplifyCSV {
     private int index = 0;
     private String[] order = new String[4];

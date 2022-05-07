@@ -1,7 +1,9 @@
 package TestParseUtils;
 
+/**
+ * A javabean designed to store rows of SimplifyLearning test results
+ **/
 public class SimplifyBean implements java.io.Serializable{
-    //	core	search	shuffle	sort
     private String suite;
     private String test;
     private int totalCov;

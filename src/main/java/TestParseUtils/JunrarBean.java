@@ -1,5 +1,8 @@
 package TestParseUtils;
 
+/**
+ * A javabean designed to store rows of Junrar test results
+ **/
 public class JunrarBean implements java.io.Serializable{
     private String suite;
     private String test;

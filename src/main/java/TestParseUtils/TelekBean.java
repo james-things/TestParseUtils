@@ -1,5 +1,8 @@
 package TestParseUtils;
 
+/**
+ * A bean designed to store rows of TelekMath test results
+ **/
 public class TelekBean implements java.io.Serializable{
     private String suite;
     private String test;
