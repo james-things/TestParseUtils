@@ -5,12 +5,11 @@ import java.util.*;
 public class SimplifyCSV {
     private int index = 0;
     private String[] order = new String[4];
-    private Map<String, SimplifyBean> slBeanMap = new HashMap<String, SimplifyBean>();
-    private ArrayList<SimplifyBean> slBeans = new ArrayList<>();
+    private Map<String, SimplifyBean> slBeanMap = new HashMap<>();
+    private ArrayList<SimplifyBean> slBeans;
 
-    public SimplifyCSV(ArrayList <SimplifyBean> list) {
+    public SimplifyCSV(ArrayList<SimplifyBean> list) {
         this.slBeans = list;
-        sortByLinesCovered(slBeans);
         mapBeans();
     }
 
@@ -29,39 +28,47 @@ public class SimplifyCSV {
         return null;
     }
 
-    public void sortByLinesCovered(ArrayList<SimplifyBean> list) {
-        list.sort(Comparator.comparing(SimplifyBean::getTotalCov).reversed());
-    }
-    public void sortByCore(ArrayList<SimplifyBean> list) {
-        list.sort(Comparator.comparing(SimplifyBean::getCore).reversed());
-    }
-    public void sortBySearch(ArrayList<SimplifyBean> list) {
-        list.sort(Comparator.comparing(SimplifyBean::getSearch).reversed());
-    }
-    public void sortByShuffle(ArrayList<SimplifyBean> list) {
-        list.sort(Comparator.comparing(SimplifyBean::getShuffle).reversed());
-    }
-    public void sortBySort(ArrayList<SimplifyBean> list) {
-        list.sort(Comparator.comparing(SimplifyBean::getSort).reversed());
+    public void sortBy(String sortKey, ArrayList<SimplifyBean> list) {
+        switch (sortKey) {
+            case "lineCov":
+                list.sort(Comparator.comparing(SimplifyBean::getTotalCov).reversed());
+                break;
+            case "core":
+                list.sort(Comparator.comparing(SimplifyBean::getCore).reversed());
+                break;
+            case "search":
+                list.sort(Comparator.comparing(SimplifyBean::getSearch).reversed());
+                break;
+            case "shuffle":
+                list.sort(Comparator.comparing(SimplifyBean::getShuffle).reversed());
+                break;
+            case "sort":
+                list.sort(Comparator.comparing(SimplifyBean::getSort).reversed());
+                break;
+            default:
+                break;
+        }
     }
 
     public void printMostLinesFirst() {
-        printResults(slBeans);
+        sortBy("lineCov", slBeans);
+        printResults();
     }
 
     public void printOtherPrioritization() {
         newPrioritization();
+        printResults();
     }
 
-    public void printResults(ArrayList<SimplifyBean> beans) {
+    public void printResults() {
         int foundErrorAtPosition = -1;
         int count = 1;
         int timeToFindError = 0;
         boolean foundError = false;
-        System.out.println("Coverage\t\tStatus\t\tTime\t\tTest");
-        for (SimplifyBean bean : beans) {
-            System.out.println(String.format("%s\t%s\t\t%s\t\t%s",
-                    bean.getTotalCov(), bean.getStatus(), bean.getTime(),bean.getTest()));
+
+        System.out.printf("%n%s %s %s %s", "Coverage", "Status", "Time", "Test");
+        for (SimplifyBean bean : slBeans) {
+            System.out.printf("%n%s %s %s %s", bean.getTotalCov(), bean.getStatus(), bean.getTime(), bean.getTest());
             if (!foundError) timeToFindError += bean.getTime();
             // if we've found an error, store count
             if (!foundError && Objects.equals(bean.getStatus(), "error")) {
@@ -74,44 +81,29 @@ public class SimplifyCSV {
         System.out.println("Time to find error: " + timeToFindError + "ms");
     }
 
-    void circularUpdateIndex() {
-        if (index == 3) index = 0;
-        else index += 1;
-    }
 
     void newPrioritization() {
+        ArrayList<SimplifyBean> tempList = new ArrayList<>();
+
         findOrder();
 
-        ArrayList<SimplifyBean> tempList = new ArrayList<>();
         int iterations = slBeans.size();
         for (int i = 0; i < iterations; i++) {
-            switch(this.order[index]) {
-                case "core":
-                    sortByCore(slBeans);
-                    break;
-                case "search":
-                    sortBySearch(slBeans);
-                    break;
-                case "shuffle":
-                    sortByShuffle(slBeans);
-                    break;
-                case "sort":
-                    sortBySort(slBeans);
-                    break;
-                default:
-                    break;
-            }
+            sortBy(this.order[index], slBeans);
             SimplifyBean tempBean = slBeans.get(0);
             tempList.add(tempBean);
             slBeans.remove(tempBean);
             circularUpdateIndex();
         }
-        System.out.print("Beans processed: " + tempList.size());
-        printResults(tempList);
+        slBeans = tempList;
+    }
+
+    void circularUpdateIndex() {
+        if (index == 3) index = 0;
+        else index += 1;
     }
 
     void findOrder() {
-        String[] order = new String[4];
         int counter = 0;
         Map<String, Integer> maxMap = new HashMap<>();
         maxMap.put("core", 0);
@@ -132,13 +124,8 @@ public class SimplifyCSV {
         Collections.reverse(maximums);
 
         for (int i : maximums) {
-            System.out.println(getKey(maxMap, i) + " " + i);
             this.order[counter] = getKey(maxMap, i);
             counter++;
-        }
-
-        for (int i = 0; i < 4; i++) {
-            System.out.println(this.order[i]);
         }
     }
 }

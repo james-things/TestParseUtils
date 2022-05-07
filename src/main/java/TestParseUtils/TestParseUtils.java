@@ -274,7 +274,7 @@ public class TestParseUtils {
         }
     }
 
-    static void prioritizetmCSV(List<TelekBean> beansList) {
+    static void prioritizetmCSV(ArrayList<TelekBean> beansList) {
         TelekCSV tmCSV = new TelekCSV(beansList);
         tmCSV.printMostLinesFirst();
     }
