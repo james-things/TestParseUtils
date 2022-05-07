@@ -203,7 +203,7 @@ public class TestParseUtils {
         }
     }
 
-    static void prioritizejCSV(List<JunrarBean> beansList) {
+    static void prioritizejCSV(ArrayList<JunrarBean> beansList) {
         JunrarCSV jCSV = new JunrarCSV(beansList);
         jCSV.printMostLinesFirst();
     }

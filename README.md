@@ -3,7 +3,7 @@
 A collection of parsing and printing utilities handling XML and CSV files.
 
 These utilities were created to assist in completing a jUnit test analysis project,
-and are specifically tailored for their purposes, however they may be tailored to suit other needs.
+and are specifically written for their purposes.
 
 The current set of options is meant to be run against the following repository:
 https://github.com/james-things/java-test-prioritization-projects
