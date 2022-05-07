@@ -30,8 +30,8 @@ public class TestParseUtils {
     public static Processors slProcessors = new Processors("sl");
     public static Processors tmProcessors = new Processors("tm");
     static final ArrayList<JunrarBean> jBeans = new ArrayList<>();
-    static final List<SimplifyBean> slBeans = new ArrayList<>();
-    static final List<TelekBean> tmBeans = new ArrayList<>();
+    static final ArrayList<SimplifyBean> slBeans = new ArrayList<>();
+    static final ArrayList<TelekBean> tmBeans = new ArrayList<>();
     // static final List<JsonJavaBean> jjBeans = new ArrayList<>();
 
     public static void main(String[] args) throws Exception {
@@ -173,23 +173,6 @@ public class TestParseUtils {
         }
     }
 
-    static void parseCSV(String targetFile) throws IOException, CsvValidationException {
-        String pathToTargetFile = pathToReports + csvFolder + targetFile;
-        Map<String, String> values = new CSVReaderHeaderAware(new FileReader(pathToTargetFile)).readMap();
-
-        printMap(values);
-    }
-
-    /**
-     * Pretty print a map, from StackExchange.
-     */
-    public static <K, V> void printMap(Map<K, V> map) {
-        for (Map.Entry<K, V> entry : map.entrySet()) {
-            System.out.println("Key : " + entry.getKey()
-                    + " Value : " + entry.getValue());
-        }
-    }
-
     /**
      * Adapted from CsvBeanReader example in SuperCSV documentation.
      */
@@ -255,10 +238,10 @@ public class TestParseUtils {
         }
     }
 
-    static void prioritizeslCSV(List<SimplifyBean> beansList) {
+    static void prioritizeslCSV(ArrayList<SimplifyBean> beansList) {
         SimplifyCSV slCSV = new SimplifyCSV(beansList);
         slCSV.printMostLinesFirst();
-        slCSV.findOrder();
+        slCSV.printOtherPrioritization();
     }
 
     /**

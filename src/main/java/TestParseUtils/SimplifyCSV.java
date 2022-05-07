@@ -3,11 +3,14 @@ package TestParseUtils;
 import java.util.*;
 
 public class SimplifyCSV {
+    private int index = 0;
+    private String[] order = new String[4];
     private Map<String, SimplifyBean> slBeanMap = new HashMap<String, SimplifyBean>();
-    private List<SimplifyBean> slBeans;
+    private ArrayList<SimplifyBean> slBeans = new ArrayList<>();
 
-    public SimplifyCSV(List <SimplifyBean> list) {
+    public SimplifyCSV(ArrayList <SimplifyBean> list) {
         this.slBeans = list;
+        sortByLinesCovered(slBeans);
         mapBeans();
     }
 
@@ -26,22 +29,39 @@ public class SimplifyCSV {
         return null;
     }
 
-    public void sortByLinesCovered() {
-        slBeans.sort(Comparator.comparing(SimplifyBean::getTotalCov).reversed());
+    public void sortByLinesCovered(ArrayList<SimplifyBean> list) {
+        list.sort(Comparator.comparing(SimplifyBean::getTotalCov).reversed());
+    }
+    public void sortByCore(ArrayList<SimplifyBean> list) {
+        list.sort(Comparator.comparing(SimplifyBean::getCore).reversed());
+    }
+    public void sortBySearch(ArrayList<SimplifyBean> list) {
+        list.sort(Comparator.comparing(SimplifyBean::getSearch).reversed());
+    }
+    public void sortByShuffle(ArrayList<SimplifyBean> list) {
+        list.sort(Comparator.comparing(SimplifyBean::getShuffle).reversed());
+    }
+    public void sortBySort(ArrayList<SimplifyBean> list) {
+        list.sort(Comparator.comparing(SimplifyBean::getSort).reversed());
     }
 
     public void printMostLinesFirst() {
+        printResults(slBeans);
+    }
+
+    public void printOtherPrioritization() {
+        newPrioritization();
+    }
+
+    public void printResults(ArrayList<SimplifyBean> beans) {
         int foundErrorAtPosition = -1;
         int count = 1;
         int timeToFindError = 0;
         boolean foundError = false;
-        System.out.println("\nTests ordered by most lines covered first\n");
-        sortByLinesCovered();
         System.out.println("Coverage\t\tStatus\t\tTime\t\tTest");
-        for (SimplifyBean bean : slBeans) {
+        for (SimplifyBean bean : beans) {
             System.out.println(String.format("%s\t%s\t\t%s\t\t%s",
                     bean.getTotalCov(), bean.getStatus(), bean.getTime(),bean.getTest()));
-            // add to time to find error as long as an error hasn't been found
             if (!foundError) timeToFindError += bean.getTime();
             // if we've found an error, store count
             if (!foundError && Objects.equals(bean.getStatus(), "error")) {
@@ -54,11 +74,45 @@ public class SimplifyCSV {
         System.out.println("Time to find error: " + timeToFindError + "ms");
     }
 
-    public void printMostLinesPerClass() {
+    void circularUpdateIndex() {
+        if (index == 3) index = 0;
+        else index += 1;
+    }
 
+    void newPrioritization() {
+        findOrder();
+
+        ArrayList<SimplifyBean> tempList = new ArrayList<>();
+        int iterations = slBeans.size();
+        for (int i = 0; i < iterations; i++) {
+            switch(this.order[index]) {
+                case "core":
+                    sortByCore(slBeans);
+                    break;
+                case "search":
+                    sortBySearch(slBeans);
+                    break;
+                case "shuffle":
+                    sortByShuffle(slBeans);
+                    break;
+                case "sort":
+                    sortBySort(slBeans);
+                    break;
+                default:
+                    break;
+            }
+            SimplifyBean tempBean = slBeans.get(0);
+            tempList.add(tempBean);
+            slBeans.remove(tempBean);
+            circularUpdateIndex();
+        }
+        System.out.print("Beans processed: " + tempList.size());
+        printResults(tempList);
     }
 
     void findOrder() {
+        String[] order = new String[4];
+        int counter = 0;
         Map<String, Integer> maxMap = new HashMap<>();
         maxMap.put("core", 0);
         maxMap.put("search", 0);
@@ -79,6 +133,12 @@ public class SimplifyCSV {
 
         for (int i : maximums) {
             System.out.println(getKey(maxMap, i) + " " + i);
+            this.order[counter] = getKey(maxMap, i);
+            counter++;
+        }
+
+        for (int i = 0; i < 4; i++) {
+            System.out.println(this.order[i]);
         }
     }
 }
