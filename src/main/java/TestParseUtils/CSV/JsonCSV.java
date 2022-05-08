@@ -121,7 +121,7 @@ public class JsonCSV {
     }
 
     private double calculateAFPD(int TFs, int N, int M) {
-        return (((double)TFs / ((double)M * (double)N)) + (1 / ((double)N*2)));
+        return 1 - (((double)TFs / ((double)M * (double)N)) + 1/((double)N*2));
     }
 
     public void printResults() {
@@ -135,7 +135,7 @@ public class JsonCSV {
 
         System.out.format("\n%-10s%-8s%-6s%-30s", "Coverage", "Status", "Time", "Test");
         for (JsonBean bean : jjBeans) {
-            System.out.format("\n%-10s%-8s%-6s%-30s", bean.getTotalCov(), bean.getStatus(), bean.getTime(), bean.getTest());
+            // System.out.format("\n%-10s%-8s%-6s%-30s", bean.getTotalCov(), bean.getStatus(), bean.getTime(), bean.getTest());
             // Collect some stats
             if (!foundFirstFailure) timeToFindFailure += bean.getTime(); // first failure
             if (!foundFirstFailure && (Objects.equals(bean.getStatus(), "error") || Objects.equals(bean.getStatus(),"failed"))) {
