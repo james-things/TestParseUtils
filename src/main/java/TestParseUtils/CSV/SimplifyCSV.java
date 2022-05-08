@@ -77,7 +77,7 @@ public class SimplifyCSV {
         writeResultsCSV("SimplifyLearning-UncovProgUnitsFirst.csv");
     }
 
-    private double calculateAFPD(int TFs, int N, int M) {
+    private double calculateAPFD(int TFs, int N, int M) {
         return 1 - (((double)TFs / ((double)M * (double)N)) + 1/((double)N*2));
     }
 
@@ -106,7 +106,7 @@ public class SimplifyCSV {
             }
             count++; //increment count
         }
-        double AFPD = calculateAFPD(afpdTFs, afpdN, afpdM);
+        double AFPD = calculateAPFD(afpdTFs, afpdN, afpdM);
         System.out.print("\n\nFound test failures at positions: ");
         for (int testPos : foundFailuresAtPositions) System.out.print(testPos + ", ");
         System.out.println("\n\nCalculated AFPD: " + AFPD);
