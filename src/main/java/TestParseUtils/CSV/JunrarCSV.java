@@ -116,7 +116,7 @@ public class JunrarCSV {
 
         System.out.format("\n%-10s%-8s%-6s%-30s", "Coverage", "Status", "Time", "Test");
         for (JunrarBean bean : jBeans) {
-            // System.out.format("\n%-10s%-8s%-6s%-30s", bean.getTotalCov(), bean.getStatus(), bean.getTime(), bean.getTest());
+            System.out.format("\n%-10s%-8s%-6s%-30s", bean.getTotalCov(), bean.getStatus(), bean.getTime(), bean.getTest());
             // Collect some stats
             if (!foundFirstFailure) timeToFindFailure += bean.getTime(); // first failure
             if (!foundFirstFailure && (Objects.equals(bean.getStatus(), "error") || Objects.equals(bean.getStatus(),"failed"))) {
