@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import javax.xml.parsers.ParserConfigurationException;
 
+import TestParseUtils.CSV.JsonCSV;
+import TestParseUtils.JavaBeans.JsonBean;
 import TestParseUtils.JavaBeans.JunrarBean;
 import TestParseUtils.JavaBeans.SimplifyBean;
 import TestParseUtils.JavaBeans.TelekBean;
@@ -17,6 +19,8 @@ import org.supercsv.cellprocessor.ift.CellProcessor;
 import org.supercsv.io.CsvBeanReader;
 import org.supercsv.io.ICsvBeanReader;
 import org.supercsv.prefs.CsvPreference;
+
+import static TestParseUtils.CSV.JsonCSV.jjProcessors;
 
 /**
  * A collection of customized utilities for processing and calculating prioritization
@@ -33,7 +37,7 @@ public class TestParseUtils {
     static final ArrayList<JunrarBean> jBeans = new ArrayList<>();
     static final ArrayList<SimplifyBean> slBeans = new ArrayList<>();
     static final ArrayList<TelekBean> tmBeans = new ArrayList<>();
-    // static final List<JsonJavaBean> jjBeans = new ArrayList<>();
+    static final ArrayList<JsonBean> jjBeans = new ArrayList<>();
 
     public static void main(String[] args) throws Exception {
         String loopString = "Y";
@@ -49,10 +53,11 @@ public class TestParseUtils {
             System.out.println("3. Print SimplifyLearning tests");
             System.out.println("4. Print telek-math tests");
             System.out.println("\n5. Print spreadsheet sum functions");
-            System.out.println("\n6. Calculate junrar prioritization");
-            System.out.println("7. Calculate SimplifyLearning prioritization");
-            System.out.println("8. Calculate telek-math prioritization");
-            System.out.println("\n9. Exit application");
+            System.out.println("\n6. Calculate JSON-java prioritization");
+            System.out.println("7. Calculate junrar prioritization");
+            System.out.println("8. Calculate SimplifyLearning prioritization");
+            System.out.println("9. Calculate telek-math prioritization");
+            System.out.println("\n10. Exit application");
             System.out.print("\nEnter a selection: ");
             int selection = Integer.parseInt(in.nextLine());
 
@@ -73,15 +78,18 @@ public class TestParseUtils {
                     printSumFunctions();
                     break;
                 case 6:
-                    prioritizeJunrarCSV();
+                    prioritizeJsonCSV();
                     break;
                 case 7:
-                    prioritizeSimplifyCSV();
+                    prioritizeJunrarCSV();
                     break;
                 case 8:
-                    prioritizeTelekCSV();
+                    prioritizeSimplifyCSV();
                     break;
                 case 9:
+                    prioritizeTelekCSV();
+                    break;
+                case 10:
                     loopString = "N";
                     System.out.println("Application will now terminate.");
                     break;
@@ -95,8 +103,8 @@ public class TestParseUtils {
      * A function to print a list of Excel functions to sum a series of table column values in a set of rows.
      */
     static void printSumFunctions() {
-        for (int i = 1; i < 160; i++) { // edit rows as needed
-            System.out.println("=SUM(D"+ (i + 1) + ":G"+ (i + 1) + ")"); // edit columns as needed
+        for (int i = 1; i < 352; i++) { // edit rows as needed
+            System.out.println("=SUM(D"+ (i + 1) + ":U"+ (i + 1) + ")"); // edit columns as needed
         }
     }
 
@@ -106,6 +114,36 @@ public class TestParseUtils {
     public static void printTestInfoAsCopyLists(String project) {
         XMLTestPrinter xmlPrinter = new XMLTestPrinter(pathToReports, reportFolder, project);
         xmlPrinter.printTestInfoAsCopyLists();
+    }
+
+    /**
+     * Prioritize tests two ways and print results for both approaches.
+     * Adapted from CsvBeanReader example in SuperCSV documentation.
+     */
+    private static void prioritizeJsonCSV() throws Exception {
+        String pathToTargetFile = pathToReports + csvFolder + "jj.csv";
+
+        ICsvBeanReader beanReader = null;
+        try {
+            beanReader = new CsvBeanReader(new FileReader(pathToTargetFile), CsvPreference.STANDARD_PREFERENCE);
+
+            // the header elements are used to map the values to the bean (names must match)
+            final String[] header = beanReader.getHeader(true);
+            final CellProcessor[] processors = jjProcessors.processor;
+
+            JsonBean jjBean;
+            while ((jjBean = beanReader.read(JsonBean.class, header, processors)) != null) {
+                jjBeans.add(jjBean);
+            }
+
+            JsonCSV jjCSV = new JsonCSV(jjBeans);
+            jjCSV.printMostLinesFirst();
+            jjCSV.printOtherPrioritization();
+        } finally {
+            if (beanReader != null) {
+                beanReader.close();
+            }
+        }
     }
 
     /**

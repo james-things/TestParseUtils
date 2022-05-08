@@ -14,6 +14,7 @@ public class Processors {
         if (targetFile == "j") processor = getjProcessors();
         if (targetFile == "tm") processor = gettmProcessors();
         if (targetFile == "sl") processor = getslProcessors();
+        if (targetFile == "jj") processor = getjjProcessors();
     }
 
     public CellProcessor[] getProcessor() {
@@ -55,7 +56,7 @@ public class Processors {
                 new NotNull(), // status
         };
     }
-// plain	containers	colors	arrayref	utils	special	core	advanced
+
     public CellProcessor[] gettmProcessors() {
         return new CellProcessor[] {
                 new NotNull(), // Suite
@@ -69,6 +70,34 @@ public class Processors {
                 new NotNull(new ParseInt()), // special
                 new NotNull(new ParseInt()), // core
                 new NotNull(new ParseInt()), // advanced
+                new NotNull(new ParseInt()), // time
+                new NotNull(), // status
+        };
+    }
+
+    public CellProcessor[] getjjProcessors() {
+        return new CellProcessor[] { // "suite", "test", "totalCov", "cdl", "cookie", "cookieList", "http", "httpTokener", "jsonArray", "jsonException", "jsonMl", "jsonObject", "jsonPointer", "jsonPointerException", "jsonStringer", "jsonTokener", "jsonWriter", "property", "xml", "xmlParserConfiguration", "xmlTokener", "time", "status"
+                new NotNull(), // Suite
+                new NotNull(), // Test
+                new NotNull(new ParseInt()), // totalCov
+                new NotNull(new ParseInt()), // cdl
+                new NotNull(new ParseInt()), // cookie
+                new NotNull(new ParseInt()), // cookieList
+                new NotNull(new ParseInt()), // http
+                new NotNull(new ParseInt()), // httpTokener
+                new NotNull(new ParseInt()), // jsonArray
+                new NotNull(new ParseInt()), // jsonException
+                new NotNull(new ParseInt()), // jsonMl
+                new NotNull(new ParseInt()), // jsonObject
+                new NotNull(new ParseInt()), // jsonPointer
+                new NotNull(new ParseInt()), // jsonPointerException
+                new NotNull(new ParseInt()), // jsonStringer
+                new NotNull(new ParseInt()), // jsonTokener
+                new NotNull(new ParseInt()), // jsonWriter
+                new NotNull(new ParseInt()), // property
+                new NotNull(new ParseInt()), // xml
+                new NotNull(new ParseInt()), // xmlParserConfiguration
+                new NotNull(new ParseInt()), // xmlTokener
                 new NotNull(new ParseInt()), // time
                 new NotNull(), // status
         };

@@ -1,0 +1,58 @@
+suite,test,totalCov,io,volume,exception,baseClass,rarfile,unpack,ppm,vm,decode,crypt,crc,unsigned,time,status
+com.github.junrar.VolumeExtractorTest,"[1] volumes/new-numbers, test-documents.000.rar",1242,80,16,0,227,149,50,52,184,23,0,4,0,25,error
+com.github.junrar.VolumeExtractorTest,"[2] volumes/new-part, test-documents.part1.rar",1242,80,16,0,227,149,50,52,184,23,0,4,0,13,error
+com.github.junrar.VolumeExtractorTest,"[1] volumes/new-numbers, test-documents.000.rar",1216,33,36,0,227,150,50,52,184,23,0,4,0,41,error
+com.github.junrar.VolumeExtractorTest,"[2] volumes/new-part, test-documents.part1.rar",1216,33,36,0,227,150,50,52,184,23,0,4,0,46,error
+com.github.junrar.JunrarTest$PasswordProtected,onlyFileContentEncryptedRar4FileAsStream(),896,91,10,0,168,219,282,52,14,23,33,4,0,13,error
+com.github.junrar.JunrarTest$PasswordProtected,onlyFileContentEncryptedRar4File(),859,45,8,0,179,219,282,52,14,23,33,4,0,33,failed
+com.github.junrar.JunrarTest$PasswordProtected,headerEncryptedRar4FileAsStream(),856,91,10,0,180,185,263,52,14,23,33,4,0,5,failed
+com.github.junrar.JunrarTest,extractionFromStreamHappyDay(),817,76,10,0,197,179,262,52,14,23,0,4,0,3,error
+com.github.junrar.ArchiveTest$Solid,givenSolidRar4File_whenExtractingInOrder_thenExtractionIsDone_withInputStream(),816,0,10,0,162,179,296,52,14,23,0,0,0,5,error
+com.github.junrar.ArchiveTest$PasswordProtected,givenEncryptedRar4File_whenCreatingArchiveWithPassword_thenItCanExtractContent(),814,91,10,0,140,184,263,52,14,23,33,4,0,8,passed
+com.github.junrar.ArchiveTest$PasswordProtected,givenPasswordProtectedRar4File_whenCreatingArchiveWithPassword_thenItCanExtractContent(),808,91,10,0,136,182,263,52,14,23,33,4,0,2,passed
+com.github.junrar.JunrarTest$PasswordProtected,headerEncryptedRar4File(),804,45,8,0,0,185,263,52,14,23,33,4,0,699,error
+com.github.junrar.AbnormalFilesTest,"[1] abnormal/corrupt-header.rar, class com.github.junrar.exception.CorruptHeaderException",800,69,10,2,108,171,0,0,0,0,0,0,0,4621,passed
+com.github.junrar.AbnormalFilesTest,"[2] abnormal/mainHeaderNull.rar, class com.github.junrar.exception.BadRarArchiveException",800,69,10,2,108,171,0,0,0,0,0,0,0,85,passed
+com.github.junrar.AbnormalFilesTest,"[3] abnormal/loop.rar, class com.github.junrar.exception.CorruptHeaderException",800,69,10,2,108,171,0,0,0,0,0,0,0,116,passed
+com.github.junrar.AbnormalFilesTest,"[1] abnormal/corrupt-header.rar, class com.github.junrar.exception.CorruptHeaderException",800,69,10,2,108,171,0,0,0,0,0,0,0,29,passed
+com.github.junrar.AbnormalFilesTest,"[2] abnormal/mainHeaderNull.rar, class com.github.junrar.exception.BadRarArchiveException",800,69,10,2,108,171,0,0,0,0,0,0,0,345,error
+com.github.junrar.AbnormalFilesTest,"[3] abnormal/loop.rar, class com.github.junrar.exception.CorruptHeaderException",800,69,10,2,108,171,0,0,0,0,0,0,0,121,error
+com.github.junrar.ArchiveTest$Solid,givenSolidRar4File_whenExtractingInOrder_thenExtractionIsDone(),788,0,10,0,134,179,296,0,14,23,0,0,0,30,error
+com.github.junrar.JunrarTest,extractionFromFileHappyDay(),761,29,8,0,190,179,262,52,14,23,0,4,0,710,error
+com.github.junrar.ArchiveTest$ExtendedTimeTest,testArchiveExtTimes_Kolkata(),705,76,10,0,147,190,190,52,14,22,0,0,0,39,passed
+com.github.junrar.ArchiveTest$ExtendedTimeTest,testArchiveExtTimes_LosAngeles(),705,76,10,0,147,190,190,52,14,22,0,0,0,123,failed
+com.github.junrar.ArchiveTest$ExtendedTimeTest,testArchiveExtTimes_Amsterdam(),705,76,10,0,147,190,190,52,14,22,0,0,0,36,passed
+com.github.junrar.ArchiveTest$ExtendedTimeTest,testArchiveExtTimes_SaoPaulo(),705,76,10,0,147,190,190,52,14,22,0,0,0,1167,error
+com.github.junrar.RarVersionTest,extractRarV4(),697,76,10,0,183,146,190,52,14,22,0,4,0,4,passed
+com.github.junrar.ResourceReleasedTest,extractRar4FromInputStream(),695,76,10,0,181,146,190,52,14,22,0,4,0,11,passed
+com.github.junrar.ResourceReleasedTest,extractRar4FromString(),650,29,8,0,185,146,190,52,14,22,0,4,0,13,passed
+com.github.junrar.ResourceReleasedTest,extractRar4FromFile(),648,29,8,0,185,146,190,52,14,22,0,4,0,12,error
+com.github.junrar.ArchiveTest$Solid,givenSolidRar4File_whenExtractingOutOfOrder_thenExceptionIsThrown(),641,76,10,0,135,178,156,52,14,18,0,0,0,2,error
+com.github.junrar.ArchiveTest,[1] audio/BoatModernEnglish-audio-text-unpack30.rar,420,29,8,0,161,147,367,52,14,18,0,4,0,5,error
+com.github.junrar.ArchiveTest,[2] audio/BoatModernEnglish-audio-text-unpack20.rar,420,29,8,0,161,147,367,52,14,18,0,4,0,127,passed
+com.github.junrar.ArchiveTest,[3] audio/BoatModernEnglish-regular-unpack30.rar,420,29,8,0,161,147,367,52,14,18,0,4,0,16,passed
+com.github.junrar.ArchiveTest,[4] audio/BoatModernEnglish-regular-unpack20.rar,420,29,8,0,161,147,367,52,14,18,0,4,0,56,passed
+com.github.junrar.ArchiveTest,[5] audio/BoatModernEnglish-regular-unpack15-dos.rar,420,29,8,0,161,147,367,52,14,18,0,4,0,13,passed
+com.github.junrar.ArchiveTest,[6] audio/BoatModernEnglish-regular-unpack15-win.rar,420,29,8,0,161,147,367,52,14,18,0,4,0,9,passed
+com.github.junrar.ArchiveTest$PasswordProtected,givenPasswordProtectedRar4File_whenCreatingArchive_thenItCanListContent(),363,71,173,107,10,2,0,0,0,0,0,0,0,12,passed
+com.github.junrar.JunrarTest,listContentsFromStream(),355,71,10,0,134,138,2,0,0,0,0,0,0,3,passed
+com.github.junrar.JunrarTest,listContents(),309,25,8,0,136,138,2,0,0,0,0,0,0,1,passed
+com.github.junrar.ArchiveTest$Unicode,unicodeFileNamesAreDecodedProperly(),307,25,8,0,101,171,2,0,0,0,0,0,0,9,error
+com.github.junrar.ArchiveTest,testTikaDocs(),291,25,8,0,116,140,2,0,0,0,0,0,0,10,passed
+com.github.junrar.ResourceReleasedTest,extractRar5FromInputStream(),200,64,10,2,79,45,0,0,0,0,0,0,0,7,passed
+com.github.junrar.ArchiveTest$PasswordProtected,givenPasswordProtectedRar5File_whenCreatingArchive_thenUnsupportedRarV5ExceptionIsThrown(),182,64,10,2,61,45,0,0,0,0,0,0,0,237,error
+com.github.junrar.ArchiveTest$PasswordProtected,givenEncryptedRar5File_whenCreatingArchive_thenUnsupportedRarV5ExceptionIsThrown(),182,64,10,2,61,45,0,0,0,0,0,0,0,20,failed
+com.github.junrar.ArchiveTest$Solid,givenSolidRar5File_whenCreatingArchive_thenUnsupportedRarV5ExceptionIsThrown(),182,64,10,2,61,45,0,0,0,0,0,0,0,51,failed
+com.github.junrar.RarVersionTest,extractRarV5(),179,64,10,2,76,45,0,0,0,0,0,0,0,2,passed
+com.github.junrar.ResourceReleasedTest,extractRar5FromString(),160,22,8,2,83,45,0,0,0,0,0,0,0,1830,passed
+com.github.junrar.ResourceReleasedTest,extractRar5FromFile(),158,22,8,2,81,45,0,0,0,0,0,0,0,6,passed
+com.github.junrar.LocalFolderExtractorTest,rarWithFileOutsideTarget_ShouldThrowException(),26,0,0,0,26,0,0,0,0,0,0,0,0,13,passed
+com.github.junrar.LocalFolderExtractorTest,rarWithDirectoriesOutsideTarget_ShouldThrowException(),25,0,0,0,25,0,0,0,0,0,0,0,0,17,error
+com.github.junrar.JunrarTest$DirectoryTraversal,ifIsFileInsteadOfDir_ThrowException(),20,0,0,0,20,0,0,0,0,0,0,0,0,18,error
+com.github.junrar.JunrarTest$DirectoryTraversal,ifIsDirInsteadOfFile_ThrowException(),11,0,0,0,11,0,0,0,0,0,0,0,0,24,error
+com.github.junrar.unsigned.UnsignedByteTest,addTest(),5,0,0,0,0,0,0,0,0,0,0,0,5,12,error
+com.github.junrar.unsigned.UnsignedByteTest,subTest(),4,0,0,0,0,0,0,0,0,0,0,0,4,10,error
+com.github.junrar.architecture.CodingRulesTest,no_access_to_standard_streams,0,0,0,0,0,0,0,0,0,0,0,0,0,19,error
+com.github.junrar.architecture.CodingRulesTest,no_generic_exceptions,0,0,0,0,0,0,0,0,0,0,0,0,0,60,error
+com.github.junrar.architecture.CodingRulesTest,no_jodatime,0,0,0,0,0,0,0,0,0,0,0,0,0,55,error
+com.github.junrar.architecture.CodingRulesTest,no_java_util_logging,0,0,0,0,0,0,0,0,0,0,0,0,0,52,error

@@ -167,7 +167,7 @@ public class SimplifyCSV {
     private void writeResultsCSV(String fileName) throws Exception {
         ICsvBeanWriter beanWriter = null;
         try {
-            beanWriter = new CsvBeanWriter(new FileWriter("target/" + fileName),
+            beanWriter = new CsvBeanWriter(new FileWriter("src/main/resources/TestParseUtils-Output/" + fileName),
                     CsvPreference.STANDARD_PREFERENCE);
 
             // the header elements are used to map the bean values to each column (names must match)
@@ -183,7 +183,7 @@ public class SimplifyCSV {
                 beanWriter.write(bean, header, processors);
             }
 
-            System.out.println("New CSV written to project /target/ directory.");
+            System.out.println("New CSV written to project src/main/resources/TestParseUtils-Output/ directory.");
         }
         finally {
             if( beanWriter != null ) {
